@@ -1,0 +1,78 @@
+.roomUserContainer {
+   display: flex;
+   flex-direction: row;
+   list-style: none;
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-flow: row wrap;
+   justify-content: space-around;
+}
+
+.roomUserItem {
+    
+}
+
+.show-grid  {
+   right: 0%;
+}
+
+.message {
+   margin: 15px 0;
+   align-self: end;
+   list-style: none;
+}
+
+.message div:nth-child(1) {
+   font-size: 11px;
+   color: #3e5869;
+   opacity: 0.9;
+   margin-bottom: 6px;
+   text-align: left;
+}
+.message div:nth-child(2) {
+   text-align: right;
+   background:#5ea3d0;
+   color: white;
+   display: inline;
+   padding: 4px 8px;
+   border-radius: 8px;
+}
+
+.message-list {
+   box-sizing: border-box;
+   padding: 0 0 0 6px;
+   margin: 0;
+   width: 100%;
+   height: 60vh;
+   overflow-y: scroll;
+   background: whitesmoke;
+   display: flex;
+   flex-direction: column;
+}
+
+.send-message-form {
+   background: #F5F5F5;
+   display: flex;
+   box-sizing: border-box;
+   height: 60px;
+}
+
+.send-message-form input {
+   width: 100%;
+   padding: 15px 10px;
+   border: none;
+   margin: 0;
+   background: #F5F5F5;
+   font-weight: 200;
+}
+
+.send-message-form input:focus {
+   outline-width: 0;
+}
+
+.send-message-form input::placeholder {
+   color: black;
+}
