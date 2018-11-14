@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pusher/chatkit": "^0.7.18",
     "ajv-keywords": "^3.2.0",
     "axios": "^0.18.0",
-    "chatkit": "0.0.1-security",
     "font-awesome": "^4.7.0",
     "i18n": "^0.8.3",
+    "prop-types": "^15.6.2",
     "react": "^16.6.1",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.1",
