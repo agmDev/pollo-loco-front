@@ -1,42 +1,45 @@
-import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Login.css";
+import React, { Component } from 'react';
+import {
+  Button, FormGroup, FormControl, ControlLabel,
+} from 'react-bootstrap';
+import './Login.css';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: '',
     };
   }
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleSubmit = async event => {
+  async handleSubmit(event) {
     event.preventDefault();
-  
+    const { userHasAuthenticated, history } = this.props;
     try {
-      //await Auth.signIn(this.state.email, this.state.password);
-      alert("Logged in");
-      this.props.userHasAuthenticated(true);
-      this.props.history.push("/");
+      // await Auth.signIn(this.state.email, this.state.password);
+      alert('Logged in');
+      userHasAuthenticated(true);
+      history.push('/');
     } catch (e) {
       alert(e.message);
     }
   }
-  
+
+  handleChange(event) {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  validateForm() {
+    const { email, password } = this.state;
+    return email.length > 0 && password.length > 0;
+  }
 
   render() {
+    const { email, password } = this.state;
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
@@ -45,14 +48,14 @@ export default class Login extends Component {
             <FormControl
               autoFocus
               type="email"
-              value={this.state.email}
+              value={email}
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
             <ControlLabel>Password</ControlLabel>
             <FormControl
-              value={this.state.password}
+              value={password}
               onChange={this.handleChange}
               type="password"
             />

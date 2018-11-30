@@ -1,38 +1,40 @@
 
-import React, { Component, Fragment } from "react";
-import Routes from "./Routes";
-import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import React, { Component, Fragment } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { PropTypes } from 'prop-types';
+import Routes from './Routes';
 
-import "./App.css";
+import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-  
-    this.state = {
-      isAuthenticated: false,
-    };
-  }
-  
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
-  
-  handleLogout = event => {
-    //await Auth.signOut();
-    this.userHasAuthenticated(false);
-    this.props.history.push("/login");
 
-  }
-  
-  render() {
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+    this.state = {
+      IsAuth: false,
     };
-    
+  }
+
+  userHasAuthenticated(authenticated) {
+    this.setState({ IsAuth: authenticated });
+  }
+
+  handleLogout() {
+    const { history } = this.props;
+    // await Auth.signOut();
+    this.userHasAuthenticated(false);
+    history.push('/login');
+  }
+
+  render() {
+    const { IsAuth } = this.state;
+    const childProps = {
+      isAuthenticated: IsAuth,
+      userHasAuthenticated: this.userHasAuthenticated,
+    };
+
     return (
       <div className="App container">
         <Navbar fluid collapseOnSelect>
@@ -44,25 +46,32 @@ class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-            {this.state.isAuthenticated
-              ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
-              : <Fragment>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
-                  </LinkContainer>
-                </Fragment>
+              {IsAuth
+                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                : (
+                  <Fragment>
+                    <LinkContainer to="/signup">
+                      <NavItem>Signup</NavItem>
+                    </LinkContainer>
+                    <LinkContainer to="/login">
+                      <NavItem>Login</NavItem>
+                    </LinkContainer>
+                  </Fragment>
+                )
             }
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes childProps={childProps}/>
+        <Routes childProps={childProps} />
       </div>
     );
   }
 }
 
-export default withRouter(App);
+App.propTypes = {
+  history: PropTypes.arrayOf(
+    String,
+  ).isRequired,
+};
 
+export default withRouter(App);

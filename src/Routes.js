@@ -1,18 +1,31 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import Login from "./Components/Users/Login";
-import NotFound from "./Components/Error/NotFound";
-import AppliedRoute from "./Components/AppliedRoute";
-import Room from "./Components/Room/Room";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+
+import Home from './Components/Home/Home';
+import Login from './Components/Users/Login';
+import NotFound from './Components/Error/NotFound';
+import AppliedRoute from './Components/AppliedRoute';
+import Room from './Components/Room/Room';
 
 
-export default ({ childProps }) =>
+const Root = ({ childProps }) => (
   <Switch>
     <AppliedRoute path="/" exact component={Home} props={childProps} />
     <AppliedRoute path="/login" exact component={Login} props={childProps} />
     <AppliedRoute path="/room" exact component={Room} props={childProps} />
     { /* Finally, catch all unmatched routes */ }
     <Route component={NotFound} />
-  </Switch>;
+  </Switch>
+);
 
+Root.propTypes = {
+  childProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      isAuthenticated: PropTypes.bool.isRequired,
+      userHasAuthenticated: PropTypes.bool.isRequired,
+    }).isRequired,
+  ).isRequired,
+};
+
+export default Root;

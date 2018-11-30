@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { ADD_ROOM } from '../actions/actions'
+import { combineReducers } from 'redux';
+import { ADD_ROOM } from '../actions/actions';
 
 function todos(state = [], action) {
   switch (action.type) {
@@ -8,16 +8,16 @@ function todos(state = [], action) {
         ...state,
         {
           text: action.text,
-          completed: false
-        }
-      ]
+          completed: false,
+        },
+      ];
     default:
-      return state
-    }
+      return state;
+  }
 }
 
 const roomApp = combineReducers({
-    todos
-})
+  todos,
+});
 
-export default roomApp
+export default roomApp;

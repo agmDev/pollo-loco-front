@@ -1,20 +1,20 @@
-import React from "react";
-import { PropTypes } from "prop-types";
+import React from 'react';
+import { PropTypes } from 'prop-types';
 
-const Message = ({message, author}) => (
-    <li key={message} className="message">
-        <div>
-            {author}
-        </div>
-        <div>
-            {message}
-        </div>
-    </li>
-)
+const Message = ({ message, author }) => (
+  <li key={message} className="message">
+    <div>
+      {author}
+    </div>
+    <div>
+      {message}
+    </div>
+  </li>
+);
 
-Message.PropTypes = {
-   mesage: PropTypes.string.isRequired,
-   author: PropTypes.string.isRequired,
-}
+Message.propTypes = {
+  message: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+};
 
-export default Message
+export default Message;
