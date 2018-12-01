@@ -22,11 +22,8 @@ const Root = ({ childProps }) => (
 );
 
 Root.propTypes = {
-  childProps: PropTypes.arrayOf(
-    PropTypes.shape({
-      isAuthenticated: PropTypes.bool.isRequired,
-      userHasAuthenticated: PropTypes.bool.isRequired,
-    }).isRequired,
+  childProps: PropTypes.objectOf(
+    Object,
   ).isRequired,
 };
 

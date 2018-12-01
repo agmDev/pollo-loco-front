@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
@@ -14,27 +13,28 @@ class App extends Component {
 
     this.state = {
       IsAuth: false,
+      UserName: '',
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
   }
 
-  userHasAuthenticated(authenticated) {
-    this.setState({ IsAuth: authenticated });
+  userHasAuthenticated(authenticated, user) {
+    this.setState({ IsAuth: authenticated, UserName: user });
   }
 
   handleLogout() {
     const { history } = this.props;
-    // await Auth.signOut();
     this.userHasAuthenticated(false);
     history.push('/login');
   }
 
   render() {
-    const { IsAuth } = this.state;
+    const { IsAuth, UserName } = this.state;
     const childProps = {
       isAuthenticated: IsAuth,
       userHasAuthenticated: this.userHasAuthenticated,
+      username: UserName,
     };
 
     return (
@@ -49,7 +49,14 @@ class App extends Component {
           <Navbar.Collapse>
             <Nav pullRight>
               {IsAuth
-                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                ? (
+                  <Fragment>
+                    <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                    <LinkContainer to="/room">
+                      <NavItem>Chat</NavItem>
+                    </LinkContainer>
+                  </Fragment>
+                )
                 : (
                   <Fragment>
                     <LinkContainer to="/signup">
@@ -71,7 +78,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  history: PropTypes.arrayOf(
+  history: PropTypes.objectOf(
     String,
   ).isRequired,
 };

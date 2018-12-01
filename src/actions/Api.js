@@ -2,15 +2,15 @@ const endpoint = 'http://localhost:8888/';
 
 export async function post(end, params) {
   try {
-    const ret = console.log(params);
-    fetch(endpoint + end, {
+    console.log(JSON.stringify(params));
+    const ret = fetch(endpoint + end, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: params,
+      body: JSON.stringify(params),
     }).then(response => response.json())
       .catch((error) => {
         console.error(error);

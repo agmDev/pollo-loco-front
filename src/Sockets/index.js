@@ -1,7 +1,7 @@
 import * as types from '../Constants/Actiontypes';
 import { addUser, messageReceived, populateUsersList } from '../actions/index';
 
-const ServerAddress = 'ws://localhost:8989';
+const ServerAddress = 'ws://localhost:8989/general';
 
 const setupSocket = (dispatch, username) => {
   const socket = new WebSocket(ServerAddress);

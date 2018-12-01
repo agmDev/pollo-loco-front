@@ -22,15 +22,15 @@ export default class Login extends Component {
     const { userHasAuthenticated, history } = this.props;
     const { user, pass } = this.state;
     try {
-      const param = JSON.stringify({
+      const param = {
         username: user,
         password: pass,
-      });
+      };
       const ret = await Api.post('login', param);
       if (ret !== false) {
-        userHasAuthenticated(true);
+        userHasAuthenticated(true, user);
+        history.push('/');
       }
-      history.push('/');
     } catch (e) {
       console.log(e.message);
     }

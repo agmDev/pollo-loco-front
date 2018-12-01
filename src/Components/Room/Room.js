@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { createStore, applyMiddleware } from 'redux';
+import { PropTypes } from 'prop-types';
 import createSagaMiddleware from 'redux-saga';
 import AddMessage from '../../Containers/AddMessage';
 import MessagesList from '../../Containers/MessagesList';
 import Sidebar from '../../Containers/Sidebar';
 
+
 import setupSocket from '../../Sockets';
 import reducers from '../../reducers';
 import handleNewMessage from '../../Sagas';
-import username from '../../Utils/name';
 
 import './Room.css';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducers, applyMiddleware(sagaMiddleware));
-const socket = setupSocket(store.dispatch, username);
-sagaMiddleware.run(handleNewMessage, { socket, username });
-
+let socket = null;
 
 export default class Room extends Component {
   componentDidMount() {
+    const { isAuthenticated, history, username } = this.props;
+    if (isAuthenticated !== true) {
+      history.push('/');
+    }
+    socket = setupSocket(store.dispatch, username);
+    sagaMiddleware.run(handleNewMessage, { socket, username });
   }
 
   render() {
@@ -47,3 +52,11 @@ export default class Room extends Component {
     );
   }
 }
+
+Room.propTypes = {
+  history: PropTypes.objectOf(
+    Object,
+  ).isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired,
+};
