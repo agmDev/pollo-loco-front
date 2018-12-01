@@ -33,7 +33,7 @@ export default class Register extends Component {
         history.push('/');
       }
     } catch (e) {
-      alert(e.message);
+      //  alert(e.message);
     }
   }
 
