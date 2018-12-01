@@ -15,6 +15,8 @@ class App extends Component {
     this.state = {
       IsAuth: false,
     };
+    this.handleLogout = this.handleLogout.bind(this);
+    this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
   }
 
   userHasAuthenticated(authenticated) {

@@ -5,13 +5,14 @@ import {
 import * as Api from '../../actions/Api';
 import './Login.css';
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       user: '',
       pass: '',
+      validPass: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,13 +27,13 @@ export default class Login extends Component {
         username: user,
         password: pass,
       });
-      const ret = await Api.post('login', param);
+      const ret = await Api.post('subscription', param);
       if (ret !== false) {
         userHasAuthenticated(true);
+        history.push('/');
       }
-      history.push('/');
     } catch (e) {
-      console.log(e.message);
+      alert(e.message);
     }
   }
 
@@ -43,12 +44,12 @@ export default class Login extends Component {
   }
 
   validateForm() {
-    const { user, pass } = this.state;
-    return user.length > 0 && pass.length > 0;
+    const { validPass, user, pass } = this.state;
+    return user.length > 0 && pass.length > 0 && validPass.length > 0 && (pass === validPass);
   }
 
   render() {
-    const { user, pass } = this.state;
+    const { validPass, user, pass } = this.state;
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
@@ -65,6 +66,14 @@ export default class Login extends Component {
             <ControlLabel>Password</ControlLabel>
             <FormControl
               value={pass}
+              onChange={this.handleChange}
+              type="password"
+            />
+          </FormGroup>
+          <FormGroup controlId="validPass" bsSize="large">
+            <ControlLabel>Validate Password</ControlLabel>
+            <FormControl
+              value={validPass}
               onChange={this.handleChange}
               type="password"
             />
